@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taral Sarvagod — Data Analyst & Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #16161f;
+      --border: #1e1e2e;
+      --accent: #00e5a0;
+      --accent2: #7c6af7;
+      --text: #e8e8f0;
+      --text-muted: #7070a0;
+      --text-dim: #404060;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,229,160,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(124,106,247,0.07) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      opacity: 0.3;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto; width: 100%;
+    }
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block; width: 40px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: italic; color: var(--accent2); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 24px; height: 1px;
+      background: var(--accent);
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+    h2 em { font-style: italic; color: var(--text-muted); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-info {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .info-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .info-icon {
+      font-size: 1rem; line-height: 1.7;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .info-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .info-val {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+    }
+    .job {
+      padding-left: 2.5rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+    .job::before {
+      content: '';
+      position: absolute; left: -4px; top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+    .job-meta {
+      display: flex; justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .job-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+    }
+    .job-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .job-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+    .job-location {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+    .job-bullets { list-style: none; margin-top: 1rem; }
+    .job-bullets li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding: 0.4rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .job-bullets li:last-child { border-bottom: none; }
+    .job-bullets li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent2);
+      font-size: 0.8rem;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .edu-card {
+      padding: 1.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .edu-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .edu-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    .edu-school {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+    .edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── RESEARCH ── */
+    .research-card {
+      padding: 2rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .research-card:hover { border-color: var(--accent); }
+    .research-card::after {
+      content: 'IEEE';
+      position: absolute; right: 2rem; top: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+    .research-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      max-width: 80%;
+    }
+    .research-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-group {
+      padding: 1.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .skill-group:hover { border-color: var(--accent2); }
+    .skill-group-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 3px;
+      background: var(--surface2);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── LINKS / CONTACT ── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .link-card {
+      padding: 1.5rem 1.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex; align-items: center; gap: 1rem;
+      transition: all 0.2s;
+    }
+    .link-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .link-icon { font-size: 1.4rem; }
+    .link-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .link-val { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── FADE-IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { gap: 1.8rem; }
+      section { padding: 4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">TS</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#links">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="max-width:100%;padding:0;">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content" style="padding: 8rem 2rem 4rem; max-width:960px; margin:0 auto;">
+      <div class="hero-tag">Available · Immediate start</div>
+      <h1>Taral<br/><em>Sarvagod</em></h1>
+      <p class="hero-sub">
+        Data Analyst &amp; Scientist with 3.5+ years at Amazon Luxembourg. I turn raw data into decisions — predictive models, automated pipelines, real-time dashboards.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:taralsarvagod98@gmail.com" class="btn btn-primary">Get in touch ↗</a>
+        <a href="#experience" class="btn btn-outline">View my work</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3.5<span>+</span></div>
+          <div class="stat-label">Years at Amazon</div>
+        </div>
+        <div>
+          <div class="stat-num">92<span>%</span></div>
+          <div class="stat-label">ML Model Accuracy</div>
+        </div>
+        <div>
+          <div class="stat-num">15<span>%</span></div>
+          <div class="stat-label">Data Accuracy Boost</div>
+        </div>
+        <div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">IEEE Publication</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="fade-in">
+      <div class="section-label">About me</div>
+      <h2>Who I <em>am</em></h2>
+    </div>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Data Analyst &amp; Scientist</strong> with a Master's in Big Data and Business Analytics, currently based in Mumbai and open to relocation.
+        </p>
+        <p>
+          At Amazon Luxembourg I led analytics projects spanning risk monitoring, ETL infrastructure, and ML-powered forecasting — delivering dashboards and models used by regional management across 3+ global territories.
+        </p>
+        <p>
+          I'm passionate about making data <strong>accessible, actionable, and beautiful</strong>. Whether that's a predictive model in Scikit-learn, an automated pipeline on AWS, or a Power BI dashboard that tells a story at a glance.
+        </p>
+        <p>
+          I'm actively targeting <strong>Data Analyst</strong> and <strong>Data Scientist</strong> roles. Immediate availability.
+        </p>
+      </div>
+      <div class="about-info">
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Mumbai, India</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">✉️</span>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-val">taralsarvagod98@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">📞</span>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-val">+91 7020067185</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🎓</span>
+          <div>
+            <div class="info-label">Education</div>
+            <div class="info-val">MSc. Big Data · FOM University</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">⚡</span>
+          <div>
+            <div class="info-label">Availability</div>
+            <div class="info-val">Immediate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="fade-in">
+      <div class="section-label">Work Experience</div>
+      <h2>Where I've <em>worked</em></h2>
+    </div>
+    <div class="timeline fade-in">
+
+      <div class="job">
+        <div class="job-meta">
+          <div>
+            <div class="job-company">Amazon</div>
+            <div class="job-title">Business Analyst</div>
+            <div class="job-location">Luxembourg</div>
+          </div>
+          <div class="job-period">Apr 2023 – Aug 2025</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Built and tested analytical solutions using Python (Pandas, Scikit-learn), incorporating statistical modeling to enhance decision-making and business performance monitoring.</li>
+          <li>Architected interactive Power BI and Tableau dashboards steering risk management insights, giving management real-time visibility into complex project metrics.</li>
+          <li>Automated manual data extraction and processing with Python scripts, reducing reporting turnaround time by 10%.</li>
+          <li>Managed data consolidation projects on AWS infrastructure, ensuring integrity and scalability of datasets for advanced risk analysis.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div>
+            <div class="job-company">Amazon</div>
+            <div class="job-title">Business Analyst Intern</div>
+            <div class="job-location">Luxembourg</div>
+          </div>
+          <div class="job-period">May 2022 – Nov 2022</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Migrated enterprise reporting for 3+ global regions by building automated ETL pipelines, improving data accuracy by 15% and ensuring consistency across stakeholder reports.</li>
+          <li>Developed a data-driven resource allocation tool that optimised throughput for high-volume periods, achieving a 5% reduction in operational overhead.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div>
+            <div class="job-company">Inteliment</div>
+            <div class="job-title">Data Science Intern</div>
+            <div class="job-location">Pune, India</div>
+          </div>
+          <div class="job-period">Aug 2020 – Nov 2020</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Designed and deployed ML models (SVM, Neural Networks) achieving 92% accuracy on production datasets.</li>
+          <li>Implemented AutoML pipelines that reduced experimental downtime by 30%.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="fade-in">
+      <div class="section-label">Education</div>
+      <h2>Academic <em>background</em></h2>
+    </div>
+    <div class="edu-grid fade-in">
+      <div class="edu-card">
+        <div class="edu-degree">MSc. Big Data &amp; Business Analytics</div>
+        <div class="edu-school">FOM University of Economics and Management, Essen, Germany</div>
+        <div class="edu-year">2019 – 2022</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">B.E. Computer Science</div>
+        <div class="edu-school">Mumbai University, India</div>
+        <div class="edu-year">2015 – 2019</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="fade-in">
+      <div class="section-label">Research</div>
+      <h2>Published <em>work</em></h2>
+    </div>
+    <div class="research-card fade-in">
+      <div class="research-title">"SISA: A Secret-Sharing Scheme Application for Cloud Environments"</div>
+      <p class="research-desc">
+        Published in IEEE. Research on privacy-preserving data sharing mechanisms for cloud environments using secret-sharing cryptographic schemes — addressing data security, access control, and distribution at scale.
+      </p>
+      <!-- Replace href below with your actual IEEE paper URL -->
+      <div style="margin-top:1.5rem;">
+        <a href="#" class="btn btn-outline" style="font-size:0.72rem;">View on IEEE ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="fade-in">
+      <div class="section-label">Skills</div>
+      <h2>Tools &amp; <em>technologies</em></h2>
+    </div>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-title">Core Expertise</div>
+        <div class="skill-tags">
+          <span class="tag">Predictive Analytics</span>
+          <span class="tag">ETL Development</span>
+          <span class="tag">Data Warehousing</span>
+          <span class="tag">Statistical Modeling</span>
+          <span class="tag">A/B Testing</span>
+          <span class="tag">Time-Series Forecasting</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Regression</span>
+          <span class="tag">Clustering</span>
+          <span class="tag">Neural Networks</span>
+          <span class="tag">Power Query (M)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Languages &amp; Tools</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">SQL</span>
+          <span class="tag">R</span>
+          <span class="tag">SAS</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">MS Excel</span>
+          <span class="tag">AutoML Pipelines</span>
+          <span class="tag">Google Data Studio</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud &amp; Infrastructure</div>
+        <div class="skill-tags">
+          <span class="tag">AWS S3</span>
+          <span class="tag">Redshift</span>
+          <span class="tag">AWS Glue</span>
+          <span class="tag">Athena</span>
+          <span class="tag">Lambda</span>
+          <span class="tag">EC2</span>
+          <span class="tag">SageMaker</span>
+          <span class="tag">AWS QuickSight</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LINKS / CONTACT -->
+  <section id="links">
+    <div class="fade-in">
+      <div class="section-label">Contact &amp; Links</div>
+      <h2>Let's <em>connect</em></h2>
+    </div>
+    <div class="links-grid fade-in">
+      <a href="mailto:taralsarvagod98@gmail.com" class="link-card">
+        <span class="link-icon">✉️</span>
+        <div>
+          <div class="link-label">Email</div>
+          <div class="link-val">taralsarvagod98@gmail.com</div>
+        </div>
+      </a>
+      <!-- Replace # with your actual LinkedIn URL -->
+      <a href="#" class="link-card" target="_blank">
+        <span class="link-icon">💼</span>
+        <div>
+          <div class="link-label">LinkedIn</div>
+          <div class="link-val">View Profile ↗</div>
+        </div>
+      </a>
+      <a href="tel:+917020067185" class="link-card">
+        <span class="link-icon">📞</span>
+        <div>
+          <div class="link-label">Phone</div>
+          <div class="link-val">+91 7020067185</div>
+        </div>
+      </a>
+      <!-- Replace # with your actual GitHub URL if you have one -->
+      <a href="#" class="link-card" target="_blank">
+        <span class="link-icon">🐙</span>
+        <div>
+          <div class="link-label">GitHub</div>
+          <div class="link-val">View Projects ↗</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Taral Sarvagod · Built with HTML/CSS · Hosted on GitHub Pages</p>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
