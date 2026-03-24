@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My DS Journey — Taral Sarvagod</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --white: #ffffff;
+  --border: #e8e4dc;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --text-dim: #a8a8a8;
+  --green: #1a6b4a;
+  --green-light: #e6f3ec;
+  --green-mid: #2d9166;
+  --blue: #1a4fa0;
+  --blue-light: #e6edf8;
+  --amber: #a05a10;
+  --amber-light: #fdf0e0;
+  --red: #b02020;
+  --red-light: #fdeaea;
+  --purple: #5a3ab0;
+  --purple-light: #eeebfa;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow: 0 4px 16px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:400;line-height:1.6;font-size:15px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,244,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--green);}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.78rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--green);}
+.nav-back{font-size:0.75rem;font-weight:500;color:var(--green);text-decoration:none;border:1px solid var(--green);padding:0.35rem 0.9rem;border-radius:20px;transition:all 0.2s;}
+.nav-back:hover{background:var(--green);color:#fff;}
+
+/* HERO */
+.hero{padding:3.5rem 2rem 2rem;max-width:1100px;margin:0 auto;}
+.hero-eyebrow{font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:0.7rem;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.1;margin-bottom:0.8rem;}
+.hero h1 span{color:var(--green);}
+.hero-sub{font-size:0.95rem;color:var(--text-muted);max-width:560px;line-height:1.75;margin-bottom:2rem;}
+
+/* STAT CARDS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2.5rem;}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.1rem;box-shadow:var(--shadow-sm);}
+.stat-card .s-label{font-size:0.68rem;color:var(--text-dim);font-weight:500;letter-spacing:0.04em;margin-bottom:0.3rem;}
+.stat-card .s-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text);line-height:1;}
+.stat-card .s-sub{font-size:0.67rem;color:var(--text-dim);margin-top:0.2rem;}
+
+/* OVERALL PROGRESS */
+.overall-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:2rem;box-shadow:var(--shadow-sm);}
+.overall-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.overall-title{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:600;}
+.overall-pct{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--green);}
+.big-bar-bg{height:10px;background:var(--bg);border-radius:6px;overflow:hidden;margin-bottom:0.8rem;}
+.big-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),#4db88a);transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+.month-mini-bars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+.mini-bar-label{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.4rem;display:flex;justify-content:space-between;}
+.mini-bar-bg{height:5px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.mini-bar-fill{height:100%;border-radius:4px;transition:width 0.4s;}
+.fill-may{background:var(--green);}
+.fill-jun{background:var(--blue);}
+.fill-jul{background:var(--amber);}
+
+/* MONTH TABS */
+.tabs-row{display:flex;gap:8px;margin-bottom:1.5rem;}
+.tab-btn{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:var(--text-muted);cursor:pointer;transition:all 0.18s;letter-spacing:0.02em;}
+.tab-btn:hover{border-color:var(--text-muted);}
+.tab-btn.active-may{background:var(--green);color:#fff;border-color:var(--green);}
+.tab-btn.active-jun{background:var(--blue);color:#fff;border-color:var(--blue);}
+.tab-btn.active-jul{background:var(--amber);color:#fff;border-color:var(--amber);}
+
+/* MONTH PANEL */
+.month-panel{display:none;}
+.month-panel.visible{display:block;}
+.month-intro{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.8rem;}
+.month-intro h2{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;}
+.month-tag{font-size:0.68rem;font-weight:600;padding:0.3rem 0.9rem;border-radius:20px;letter-spacing:0.05em;}
+.tag-may{background:var(--green-light);color:var(--green);}
+.tag-jun{background:var(--blue-light);color:var(--blue);}
+.tag-jul{background:var(--amber-light);color:var(--amber);}
+
+/* GOALS GRID */
+.goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.goal-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.4rem;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s;}
+.goal-card:hover{box-shadow:var(--shadow);}
+.goal-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.7rem;margin-bottom:0.6rem;}
+.goal-name{font-size:0.88rem;font-weight:500;color:var(--text);line-height:1.45;flex:1;}
+.goal-badge{font-size:0.62rem;font-weight:600;padding:0.22rem 0.65rem;border-radius:20px;letter-spacing:0.05em;white-space:nowrap;flex-shrink:0;}
+.gb-sql{background:var(--green-light);color:var(--green);}
+.gb-py{background:var(--blue-light);color:var(--blue);}
+.gb-ml{background:var(--amber-light);color:var(--amber);}
+.gb-app{background:var(--red-light);color:var(--red);}
+.gb-proj{background:var(--purple-light);color:var(--purple);}
+.gb-int{background:#fff0f8;color:#a0306b;}
+
+/* TARGET LINE */
+.goal-target{font-size:0.72rem;color:var(--text-dim);margin-bottom:0.8rem;line-height:1.5;}
+.goal-target strong{color:var(--text-muted);}
+
+/* SLIDER SECTION */
+.slider-section{display:flex;align-items:center;gap:10px;margin-bottom:0.5rem;}
+.slider-track{flex:1;-webkit-appearance:none;appearance:none;height:5px;border-radius:4px;outline:none;cursor:pointer;transition:opacity 0.2s;}
+.slider-track::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+.slider-may{background:linear-gradient(to right, var(--green) 0%, var(--green) var(--val,0%), #e8e4dc var(--val,0%), #e8e4dc 100%);}
+.slider-may::-webkit-slider-thumb{background:var(--green);}
+.slider-jun{background:linear-gradient(to right, var(--blue) 0%, var(--blue) var(--val,0%), #e8e4dc var(--val,0%), #e8e4dc 100%);}
+.slider-jun::-webkit-slider-thumb{background:var(--blue);}
+.slider-jul{background:linear-gradient(to right, var(--amber) 0%, var(--amber) var(--val,0%), #e8e4dc var(--val,0%), #e8e4dc 100%);}
+.slider-jul::-webkit-slider-thumb{background:var(--amber);}
+.slider-pct{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:600;min-width:36px;text-align:right;}
+.pct-may{color:var(--green);}
+.pct-jun{color:var(--blue);}
+.pct-jul{color:var(--amber);}
+
+/* PROGRESS BAR UNDER SLIDER */
+.goal-bar-bg{height:3px;background:var(--bg);border-radius:3px;overflow:hidden;}
+.goal-bar-fill{height:100%;border-radius:3px;transition:width 0.3s;}
+.gf-may{background:var(--green);}
+.gf-jun{background:var(--blue);}
+.gf-jul{background:var(--amber);}
+
+/* DAILY CHECKLIST */
+.daily-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.6rem;margin-bottom:1rem;box-shadow:var(--shadow-sm);}
+.daily-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.daily-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;}
+.daily-date{font-size:0.7rem;color:var(--text-dim);}
+.daily-items{display:flex;flex-direction:column;gap:0;}
+.daily-item{display:flex;align-items:center;gap:12px;padding:0.65rem 0;border-bottom:1px solid var(--border);cursor:pointer;}
+.daily-item:last-child{border-bottom:none;padding-bottom:0;}
+.daily-item:first-child{padding-top:0;}
+.check-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;background:var(--white);}
+.check-box.checked-may{background:var(--green);border-color:var(--green);}
+.check-box.checked-jun{background:var(--blue);border-color:var(--blue);}
+.check-box.checked-jul{background:var(--amber);border-color:var(--amber);}
+.check-icon{width:10px;height:10px;opacity:0;transition:opacity 0.15s;}
+.check-box.checked-may .check-icon,.check-box.checked-jun .check-icon,.check-box.checked-jul .check-icon{opacity:1;}
+.daily-text{font-size:0.87rem;color:var(--text);flex:1;line-height:1.45;transition:all 0.18s;}
+.daily-item.done .daily-text{color:var(--text-dim);text-decoration:line-through;}
+.daily-time{font-size:0.68rem;font-weight:600;color:var(--text-dim);background:var(--bg);padding:0.2rem 0.5rem;border-radius:20px;flex-shrink:0;}
+.daily-progress{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.daily-prog-label{font-size:0.72rem;color:var(--text-muted);}
+.daily-prog-dots{display:flex;gap:6px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background 0.2s;}
+
+/* TIP */
+.tip-card{border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:2rem;border-left:3px solid;}
+.tip-may{background:var(--green-light);border-color:var(--green);}
+.tip-jun{background:var(--blue-light);border-color:var(--blue);}
+.tip-jul{background:var(--amber-light);border-color:var(--amber);}
+.tip-eyebrow{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
+.tip-may .tip-eyebrow{color:var(--green);}
+.tip-jun .tip-eyebrow{color:var(--blue);}
+.tip-jul .tip-eyebrow{color:var(--amber);}
+.tip-text{font-size:0.87rem;line-height:1.7;color:var(--text-muted);}
+
+/* RESET BUTTON */
+.reset-btn{font-size:0.72rem;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:20px;padding:0.3rem 0.8rem;cursor:pointer;transition:all 0.18s;}
+.reset-btn:hover{color:var(--red);border-color:var(--red);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);text-align:center;padding:1.8rem;font-size:0.7rem;color:var(--text-dim);background:var(--white);margin-top:3rem;}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .goals-grid{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:repeat(3,1fr);}
+  .month-mini-bars{grid-template-columns:1fr;}
+  nav{padding:0.8rem 1rem;}
+  .hero{padding:2.5rem 1rem 1.5rem;}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+.month-panel.visible .goal-card{animation:fadeUp 0.3s ease both;}
+.month-panel.visible .goal-card:nth-child(2){animation-delay:0.05s;}
+.month-panel.visible .goal-card:nth-child(3){animation-delay:0.1s;}
+.month-panel.visible .goal-card:nth-child(4){animation-delay:0.15s;}
+.month-panel.visible .goal-card:nth-child(5){animation-delay:0.2s;}
+.month-panel.visible .goal-card:nth-child(6){animation-delay:0.25s;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Taral · DS Journey</div>
+  <ul class="nav-links">
+    <li><a href="#tracker">Tracker</a></li>
+    <li><a href="#daily">Daily</a></li>
+    <li><a href="index.html" class="nav-back">← Portfolio</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">May — July 2026</div>
+  <h1>My <span>Data Scientist</span><br/>Journey Tracker</h1>
+  <p class="hero-sub">3 months. 1 goal. Track your SQL, Python, ML and job application progress on the road to landing a Data Scientist role in India.</p>
+
+  <!-- STAT CARDS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="s-label">Overall</div>
+      <div class="s-val" id="s-overall">0%</div>
+      <div class="s-sub">all goals</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">SQL solved</div>
+      <div class="s-val" id="s-sql">0</div>
+      <div class="s-sub">target 90</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">Python done</div>
+      <div class="s-val" id="s-py">0</div>
+      <div class="s-sub">target 60</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">Applications</div>
+      <div class="s-val" id="s-app">0</div>
+      <div class="s-sub">target 80</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-label">Today streak</div>
+      <div class="s-val" id="s-streak">0</div>
+      <div class="s-sub">daily tasks</div>
+    </div>
+  </div>
+
+  <!-- OVERALL PROGRESS BAR -->
+  <div class="overall-section" id="tracker">
+    <div class="overall-header">
+      <div class="overall-title">3-month journey progress</div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="reset-btn" onclick="resetAll()">Reset all</button>
+        <div class="overall-pct" id="overall-pct">0%</div>
+      </div>
+    </div>
+    <div class="big-bar-bg"><div class="big-bar-fill" id="big-bar" style="width:0%"></div></div>
+    <div class="month-mini-bars">
+      <div>
+        <div class="mini-bar-label"><span>May — Foundations</span><span id="may-pct-mini">0%</span></div>
+        <div class="mini-bar-bg"><div class="mini-bar-fill fill-may" id="may-mini-fill" style="width:0%"></div></div>
+      </div>
+      <div>
+        <div class="mini-bar-label"><span>June — Build & apply</span><span id="jun-pct-mini">0%</span></div>
+        <div class="mini-bar-bg"><div class="mini-bar-fill fill-jun" id="jun-mini-fill" style="width:0%"></div></div>
+      </div>
+      <div>
+        <div class="mini-bar-label"><span>July — Interview mode</span><span id="jul-pct-mini">0%</span></div>
+        <div class="mini-bar-bg"><div class="mini-bar-fill fill-jul" id="jul-mini-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-row">
+    <button class="tab-btn active-may" id="tab-may" onclick="switchMonth('may')">May</button>
+    <button class="tab-btn" id="tab-jun" onclick="switchMonth('jun')">June</button>
+    <button class="tab-btn" id="tab-jul" onclick="switchMonth('jul')">July</button>
+  </div>
+
+  <!-- ══ MAY PANEL ══ -->
+  <div class="month-panel visible" id="panel-may">
+    <div class="month-intro">
+      <h2>May — Sharpen your fundamentals</h2>
+      <span class="month-tag tag-may">Foundation month</span>
+    </div>
+    <div class="goals-grid">
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">SQL — analytical problems daily on StrataScratch</div>
+          <span class="goal-badge gb-sql">SQL</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 30 problems solved in May (1/day, mix medium + hard, analytical section only)</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m1" min="0" max="100" value="0" step="5" oninput="updateGoal('m1',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m1">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m1" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Python — Pandas problems on LeetCode (Pandas section)</div>
+          <span class="goal-badge gb-py">Python</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 20 Pandas problems completed (Easy → Medium, focus on groupby, merge, window)</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m2" min="0" max="100" value="0" step="5" oninput="updateGoal('m2',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m2">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m2" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">ML theory — 1 concept/day, write plain English explanation</div>
+          <span class="goal-badge gb-ml">ML</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 20 concepts covered and written down (Random Forest, XGBoost, Logistic Reg, etc.)</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m3" min="0" max="100" value="0" step="5" oninput="updateGoal('m3',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m3">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m3" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Stats revision — hypothesis testing, A/B, distributions</div>
+          <span class="goal-badge gb-ml">Stats</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Completed Andrew Ng stats refresh + can explain p-value, CLT, Type 1/2 errors confidently out loud</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m4" min="0" max="100" value="0" step="5" oninput="updateGoal('m4',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m4">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m4" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">India CV — tailor resume + set Naukri & LinkedIn job alerts</div>
+          <span class="goal-badge gb-app">Apply</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> India CV updated with LPA range, Naukri profile live, LinkedIn "Open to Work" set, 10 job alerts active</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m5" min="0" max="100" value="0" step="5" oninput="updateGoal('m5',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m5">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m5" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">STAR stories — prep 5 Amazon work examples for interviews</div>
+          <span class="goal-badge gb-int">Interview</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 5 written STAR answers (situation → task → action → result) from your Amazon work, each under 2 minutes</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-may" id="sl-m6" min="0" max="100" value="0" step="5" oninput="updateGoal('m6',this.value,'may')"/>
+          <span class="slider-pct pct-may" id="sp-m6">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-may" id="gb-m6" style="width:0%"></div></div>
+      </div>
+
+    </div>
+
+    <div class="tip-card tip-may">
+      <div class="tip-eyebrow">May focus tip</div>
+      <div class="tip-text">SQL first, Pandas second. You already think in SQL — translate every SQL query into Pandas code side by side. Don't start applying yet. Build the daily habit of 1.5 hrs consistently. Consistency beats intensity every time this month.</div>
+    </div>
+
+    <div class="daily-card" id="daily">
+      <div class="daily-header">
+        <div class="daily-title">Today's checklist</div>
+        <div class="daily-date" id="today-date"></div>
+      </div>
+      <div class="daily-items" id="daily-may">
+        <div class="daily-item" onclick="toggleCheck(this,'may')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">1 SQL problem on StrataScratch (analytical, medium or hard)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'may')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">1 Pandas problem on LeetCode (Pandas section)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'may')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Read 1 ML concept — write a 5-line plain English explanation</span>
+          <span class="daily-time">30 min</span>
+        </div>
+      </div>
+      <div class="daily-progress">
+        <div class="daily-prog-label">Today: <span id="daily-may-count">0 of 3 done</span></div>
+        <div class="daily-prog-dots" id="dots-may">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ JUNE PANEL ══ -->
+  <div class="month-panel" id="panel-jun">
+    <div class="month-intro">
+      <h2>June — Build and apply</h2>
+      <span class="month-tag tag-jun">Project + applications</span>
+    </div>
+    <div class="goals-grid">
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">End-to-end ML project — EDA, model, deploy on Streamlit</div>
+          <span class="goal-badge gb-proj">Project</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Deployed app live on Hugging Face or Render. Full pipeline: data → EDA → model → evaluation → Streamlit UI. GitHub README written.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j1" min="0" max="100" value="0" step="5" oninput="updateGoal('j1',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j1">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j1" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Apply to 8–10 quality India roles per week</div>
+          <span class="goal-badge gb-app">Apply</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 40 tailored applications sent across Naukri + LinkedIn. Each with a tweaked CV matching the JD keywords.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j2" min="0" max="100" value="0" step="5" oninput="updateGoal('j2',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j2">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j2" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">SQL — hard problems, window functions + query optimisation</div>
+          <span class="goal-badge gb-sql">SQL</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 30 hard SQL problems done. Comfortable with RANK/DENSE_RANK, LAG/LEAD, recursive CTEs, explain plan basics.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j3" min="0" max="100" value="0" step="5" oninput="updateGoal('j3',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j3">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j3" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Mock interviews — 1 per week on Pramp (free)</div>
+          <span class="goal-badge gb-int">Interview</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 4 mock sessions completed. Can walk through any data problem structured: understand → approach → code → verify → explain.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j4" min="0" max="100" value="0" step="5" oninput="updateGoal('j4',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j4">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j4" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Python — StrataScratch algorithm questions added to habit</div>
+          <span class="goal-badge gb-py">Python</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 20 algorithm-style Python problems on StrataScratch. Writing clean reusable functions, not just answers.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j5" min="0" max="100" value="0" step="5" oninput="updateGoal('j5',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j5">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j5" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Case study practice — structure data problem answers out loud</div>
+          <span class="goal-badge gb-int">Interview</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 10 case study answers practiced (timed, spoken aloud). "Given this dataset, how would you…" format. Record yourself once.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jun" id="sl-j6" min="0" max="100" value="0" step="5" oninput="updateGoal('j6',this.value,'jun')"/>
+          <span class="slider-pct pct-jun" id="sp-j6">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jun" id="gb-j6" style="width:0%"></div></div>
+      </div>
+
+    </div>
+
+    <div class="tip-card tip-jun">
+      <div class="tip-eyebrow">June focus tip</div>
+      <div class="tip-text">The deployed project is your biggest differentiator. Most candidates have notebooks. You will have a live app. Churn prediction or fraud detection are ideal topics — every hiring manager understands them immediately. Build it in the first 2 weeks, spend the rest of June applying.</div>
+    </div>
+
+    <div class="daily-card">
+      <div class="daily-header">
+        <div class="daily-title">Today's checklist</div>
+        <div class="daily-date" id="today-date-jun"></div>
+      </div>
+      <div class="daily-items" id="daily-jun">
+        <div class="daily-item" onclick="toggleCheck(this,'jun')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">1 hard SQL problem (window functions focus)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jun')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Work on ML project (EDA → model → deploy pipeline)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jun')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Tailor + send 2 job applications (Naukri or LinkedIn)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jun')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">1 Python/StrataScratch algorithm problem</span>
+          <span class="daily-time">15 min</span>
+        </div>
+      </div>
+      <div class="daily-progress">
+        <div class="daily-prog-label">Today: <span id="daily-jun-count">0 of 4 done</span></div>
+        <div class="daily-prog-dots" id="dots-jun">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ JULY PANEL ══ -->
+  <div class="month-panel" id="panel-jul">
+    <div class="month-intro">
+      <h2>July — Interview mode & decision</h2>
+      <span class="month-tag tag-jul">Close the offer</span>
+    </div>
+    <div class="goals-grid">
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">2 mock interviews per week — company-specific prep</div>
+          <span class="goal-badge gb-int">Interview</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 8 mock sessions done. For each real company interview, spend 80% of prep on that specific company's product and data stack.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l1" min="0" max="100" value="0" step="5" oninput="updateGoal('l1',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l1">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l1" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">System design basics — fraud pipeline, recommendation engine</div>
+          <span class="goal-badge gb-ml">ML</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Can answer "design a fraud detection system" and "design a recommendation engine" with a clear structured framework in 10 minutes.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l2" min="0" max="100" value="0" step="5" oninput="updateGoal('l2',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l2">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l2" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Continue applying + follow up on all open pipeline</div>
+          <span class="goal-badge gb-app">Apply</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> 40 more applications. Every application older than 10 days gets a follow-up message. Maintain a simple spreadsheet to track.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l3" min="0" max="100" value="0" step="5" oninput="updateGoal('l3',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l3">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l3" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">SQL + Python — maintain daily habit, target weak spots</div>
+          <span class="goal-badge gb-sql">SQL</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Streak unbroken. 1 problem/day minimum. Identify your 2 weakest areas from June mocks and drill those specifically.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l4" min="0" max="100" value="0" step="5" oninput="updateGoal('l4',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l4">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l4" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Make the decision — India offer vs Uni Luxembourg</div>
+          <span class="goal-badge gb-app">Decision</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Decision made by 31 July with clear reasoning. If India offer ≥ 20 LPA at good company → accept. If nothing, activate masters plan.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l5" min="0" max="100" value="0" step="5" oninput="updateGoal('l5',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l5">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l5" style="width:0%"></div></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-card-top">
+          <div class="goal-name">Negotiate offer — research LPA benchmarks, know your floor</div>
+          <span class="goal-badge gb-int">Interview</span>
+        </div>
+        <div class="goal-target"><strong>100% =</strong> Know market rate for DS roles at your target companies. Floor = 16 LPA. Target = 24–28 LPA. Prepared to counter-offer confidently.</div>
+        <div class="slider-section">
+          <input type="range" class="slider-track slider-jul" id="sl-l6" min="0" max="100" value="0" step="5" oninput="updateGoal('l6',this.value,'jul')"/>
+          <span class="slider-pct pct-jul" id="sp-l6">0%</span>
+        </div>
+        <div class="goal-bar-bg"><div class="goal-bar-fill gf-jul" id="gb-l6" style="width:0%"></div></div>
+      </div>
+
+    </div>
+
+    <div class="tip-card tip-jul">
+      <div class="tip-eyebrow">July focus tip</div>
+      <div class="tip-text">Stop learning new things. July is purely about converting your pipeline into offers. When you get an interview, spend 80% of prep on that specific company — their product, metrics, and known interview format. Generic prep does not win at this stage. Quality over quantity.</div>
+    </div>
+
+    <div class="daily-card">
+      <div class="daily-header">
+        <div class="daily-title">Today's checklist</div>
+        <div class="daily-date" id="today-date-jul"></div>
+      </div>
+      <div class="daily-items" id="daily-jul">
+        <div class="daily-item" onclick="toggleCheck(this,'jul')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">1 SQL or Python problem — keep the streak alive</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jul')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Interview prep: STAR story or technical concept (spoken aloud)</span>
+          <span class="daily-time">45 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jul')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Apply + follow up on open applications (check spreadsheet)</span>
+          <span class="daily-time">30 min</span>
+        </div>
+        <div class="daily-item" onclick="toggleCheck(this,'jul')">
+          <div class="check-box"><svg class="check-icon" viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="daily-text">Research 1 target company (product, data stack, culture)</span>
+          <span class="daily-time">15 min</span>
+        </div>
+      </div>
+      <div class="daily-progress">
+        <div class="daily-prog-label">Today: <span id="daily-jul-count">0 of 4 done</span></div>
+        <div class="daily-prog-dots" id="dots-jul">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end hero -->
+
+<footer>
+  © 2026 Taral Sarvagod · <a href="index.html" style="color:var(--green);text-decoration:none;">Back to Portfolio</a> · Built with purpose
+</footer>
+
+<script>
+const STORAGE_KEY = 'taral_ds_journey_v2';
+const months = {
+  may: ['m1','m2','m3','m4','m5','m6'],
+  jun: ['j1','j2','j3','j4','j5','j6'],
+  jul: ['l1','l2','l3','l4','l5','l6']
+};
+const allGoals = [...months.may, ...months.jun, ...months.jul];
+
+let state = {vals:{}, daily:{may:{}, jun:{}, jul:{}}, dailyDate:''};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = JSON.parse(saved);
+  } catch(e) {}
+  allGoals.forEach(g => { if(!state.vals[g]) state.vals[g] = 0; });
+  const today = getTodayKey();
+  if (state.dailyDate !== today) {
+    state.daily = {may:{}, jun:{}, jul:{}};
+    state.dailyDate = today;
+    saveState();
+  }
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function getTodayKey() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function updateGoal(id, val, month) {
+  val = parseInt(val);
+  state.vals[id] = val;
+  document.getElementById('gb-' + id).style.width = val + '%';
+  document.getElementById('sp-' + id).textContent = val + '%';
+  const slider = document.getElementById('sl-' + id);
+  slider.style.setProperty('--val', val + '%');
+  saveState();
+  refreshStats();
+}
+
+function refreshStats() {
+  const total = allGoals.reduce((s,g) => s + state.vals[g], 0);
+  const pct = Math.round(total / allGoals.length);
+  document.getElementById('overall-pct').textContent = pct + '%';
+  document.getElementById('s-overall').textContent = pct + '%';
+  document.getElementById('big-bar').style.width = pct + '%';
+
+  ['may','jun','jul'].forEach(m => {
+    const mp = Math.round(months[m].reduce((s,g) => s + state.vals[g], 0) / months[m].length);
+    document.getElementById(m + '-pct-mini').textContent = mp + '%';
+    document.getElementById(m + '-mini-fill').style.width = mp + '%';
+  });
+
+  const sqlGoals = ['m1','j3','l4'];
+  const sqlPct = Math.round(sqlGoals.reduce((s,g) => s + state.vals[g], 0) / sqlGoals.length);
+  document.getElementById('s-sql').textContent = Math.round(sqlPct * 0.9);
+
+  const pyGoals = ['m2','j5'];
+  const pyPct = Math.round(pyGoals.reduce((s,g) => s + state.vals[g], 0) / pyGoals.length);
+  document.getElementById('s-py').textContent = Math.round(pyPct * 0.6);
+
+  const appGoals = ['m5','j2','l3'];
+  const appPct = Math.round(appGoals.reduce((s,g) => s + state.vals[g], 0) / appGoals.length);
+  document.getElementById('s-app').textContent = Math.round(appPct * 0.8);
+}
+
+function applyState() {
+  allGoals.forEach(g => {
+    const val = state.vals[g] || 0;
+    const bar = document.getElementById('gb-' + g);
+    const pct = document.getElementById('sp-' + g);
+    const slider = document.getElementById('sl-' + g);
+    if (bar) bar.style.width = val + '%';
+    if (pct) pct.textContent = val + '%';
+    if (slider) { slider.value = val; slider.style.setProperty('--val', val + '%'); }
+  });
+}
+
+function toggleCheck(el, month) {
+  const idx = Array.from(el.parentElement.children).indexOf(el);
+  const key = 'item_' + idx;
+  const isDone = state.daily[month][key];
+  state.daily[month][key] = !isDone;
+  saveState();
+  renderDailyMonth(month);
+  updateStreakStat();
+}
+
+function renderDailyMonth(month) {
+  const container = document.getElementById('daily-' + month);
+  if (!container) return;
+  const items = container.querySelectorAll('.daily-item');
+  let doneCount = 0;
+  items.forEach((item, i) => {
+    const key = 'item_' + i;
+    const done = state.daily[month][key];
+    const box = item.querySelector('.check-box');
+    box.className = 'check-box' + (done ? ' checked-' + month : '');
+    item.className = 'daily-item' + (done ? ' done' : '');
+    if (done) doneCount++;
+  });
+  const total = items.length;
+  const countEl = document.getElementById('daily-' + month + '-count');
+  if (countEl) countEl.textContent = doneCount + ' of ' + total + ' done';
+  const dots = document.getElementById('dots-' + month);
+  if (dots) {
+    const dotEls = dots.querySelectorAll('.dot');
+    const dotColor = month === 'may' ? 'var(--green)' : month === 'jun' ? 'var(--blue)' : 'var(--amber)';
+    dotEls.forEach((d, i) => { d.style.background = i < doneCount ? dotColor : 'var(--border)'; });
+  }
+}
+
+function updateStreakStat() {
+  const allDaily = Object.values(state.daily);
+  let total = 0;
+  allDaily.forEach(m => { total += Object.values(m).filter(Boolean).length; });
+  document.getElementById('s-streak').textContent = total;
+}
+
+function switchMonth(month) {
+  document.querySelectorAll('.month-panel').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.className = 'tab-btn');
+  document.getElementById('panel-' + month).classList.add('visible');
+  document.getElementById('tab-' + month).className = 'tab-btn active-' + month;
+}
+
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  allGoals.forEach(g => state.vals[g] = 0);
+  state.daily = {may:{}, jun:{}, jul:{}};
+  saveState();
+  applyState();
+  refreshStats();
+  ['may','jun','jul'].forEach(m => renderDailyMonth(m));
+  updateStreakStat();
+}
+
+function setDates() {
+  const opts = {weekday:'long', year:'numeric', month:'long', day:'numeric'};
+  const ds = new Date().toLocaleDateString('en-GB', opts);
+  ['today-date','today-date-jun','today-date-jul'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = ds;
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  applyState();
+  refreshStats();
+  ['may','jun','jul'].forEach(m => renderDailyMonth(m));
+  updateStreakStat();
+  setDates();
+});
+</script>
+</body>
+</html>
