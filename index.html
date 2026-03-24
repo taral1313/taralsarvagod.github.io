@@ -44,13 +44,22 @@
       font-size: 1.05rem; font-weight: 600;
       color: var(--accent);
     }
-    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links { display: flex; gap: 1.4rem; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 0.8rem; font-weight: 500;
       color: var(--text-muted); text-decoration: none;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
+    .nav-journey {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--accent); text-decoration: none;
+      border: 1.5px solid var(--accent);
+      padding: 0.32rem 0.85rem; border-radius: 20px;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .nav-journey:hover { background: var(--accent); color: #fff; }
 
     /* HERO */
     #hero {
@@ -94,6 +103,8 @@
     .btn-primary:hover { background: #155a3d; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,107,74,0.25); }
     .btn-outline { background: var(--white); color: var(--text-muted); border: 1.5px solid var(--border); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-journey { background: var(--accent-light); color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-journey:hover { background: var(--accent); color: #fff; }
 
     /* PHOTO */
     .hero-photo-wrap {
@@ -254,6 +265,7 @@
     <li><a href="#education">Education</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#links">Contact</a></li>
+    <li><a href="journey.html" class="nav-journey">✦ My Journey</a></li>
   </ul>
 </nav>
 
@@ -270,19 +282,9 @@
       <div class="hero-cta">
         <a href="mailto:taralsarvagod98@gmail.com" class="btn btn-primary">✉ Get in Touch</a>
         <a href="#experience" class="btn btn-outline">View Experience ↓</a>
+        <a href="journey.html" class="btn btn-journey">✦ My DS Journey</a>
       </div>
     </div>
-
-    <!--
-      ════════════════════════════════════════════
-      HOW TO ADD YOUR PHOTO:
-      1. Save your photo as "photo.jpg" in the
-         same folder as this index.html file.
-      2. That's it! It will appear automatically.
-         The "TS" initials show as a fallback if
-         no photo is found.
-      ════════════════════════════════════════════
-    -->
     <div class="hero-photo-wrap">
       <img src="photo.jpg" alt="Taral Sarvagod"
            onerror="this.style.display='none'; document.getElementById('initials').style.display='flex'"/>
@@ -377,7 +379,6 @@
 <!-- EDUCATION + RESEARCH -->
 <section id="education" class="section">
   <div class="two-col" style="margin-top:0; align-items:start;">
-
     <div>
       <div class="section-head fade-in"><h2>Education</h2></div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
@@ -395,20 +396,17 @@
         </div>
       </div>
     </div>
-
     <div id="research">
       <div class="section-head fade-in"><h2>Research</h2></div>
       <div class="card fade-in">
         <div class="research-pub">📄 IEEE Publication</div>
         <div class="research-title">"SISA: A Secret-Sharing Scheme Application for Cloud Environments"</div>
         <p class="research-desc">Privacy-preserving data sharing for cloud environments using cryptographic secret-sharing — addressing security, access control, and distribution at scale.</p>
-        <!-- Replace # with your actual IEEE paper URL -->
         <div style="margin-top:1rem;">
           <a href="https://ieeexplore.ieee.org/document/9002527" class="btn btn-outline" style="font-size:0.73rem; padding:0.48rem 0.95rem;">View on IEEE ↗</a>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -469,45 +467,26 @@
 <section id="links" class="section">
   <div class="section-head fade-in"><h2>Contact &amp; Links</h2></div>
   <div class="two-col fade-in">
-
     <a href="mailto:taralsarvagod98@gmail.com" class="card link-card">
       <div class="link-icon-wrap">✉️</div>
-      <div>
-        <div class="link-label">Email</div>
-        <div class="link-val">taralsarvagod98@gmail.com</div>
-      </div>
+      <div><div class="link-label">Email</div><div class="link-val">taralsarvagod98@gmail.com</div></div>
     </a>
-
-    <!-- Replace # with your actual LinkedIn URL -->
     <a href="https://www.linkedin.com/in/taral-sarvagod-20ba00190/" target="_blank" class="card link-card">
       <div class="link-icon-wrap">💼</div>
-      <div>
-        <div class="link-label">LinkedIn</div>
-        <div class="link-val">View Profile ↗</div>
-      </div>
+      <div><div class="link-label">LinkedIn</div><div class="link-val">View Profile ↗</div></div>
     </a>
-
     <a href="tel:+917020067185" class="card link-card">
       <div class="link-icon-wrap">📞</div>
-      <div>
-        <div class="link-label">Phone</div>
-        <div class="link-val">+91 7020067185</div>
-      </div>
+      <div><div class="link-label">Phone</div><div class="link-val">+91 7020067185</div></div>
     </a>
-
-    <!-- Replace # with your GitHub URL, or remove this card if not needed -->
     <a href="https://github.com/taral1313" target="_blank" class="card link-card">
       <div class="link-icon-wrap">🐙</div>
-      <div>
-        <div class="link-label">GitHub</div>
-        <div class="link-val">View Projects ↗</div>
-      </div>
+      <div><div class="link-label">GitHub</div><div class="link-val">View Projects ↗</div></div>
     </a>
-
   </div>
 </section>
 
-<footer>© 2025 Taral Sarvagod · Data Analyst &amp; Scientist · Hosted on GitHub Pages</footer>
+<footer>© 2026 Taral Sarvagod · Data Analyst &amp; Scientist · Hosted on GitHub Pages</footer>
 
 <script>
   const io = new IntersectionObserver(entries => {
